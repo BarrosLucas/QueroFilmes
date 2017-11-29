@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quero Filmes</string>
+    <string name="search">Buscar</string>
+    <string name="add">Adicionar</string>
+</resources>
