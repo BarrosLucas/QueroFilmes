@@ -2,8 +2,11 @@ package com.example.root.querofilmes.model.DAO;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.root.querofilmes.model.Movie;
+
+import java.util.List;
 
 /**
  * Created by root on 28/11/17.
@@ -18,9 +21,17 @@ public class Database {
             task.execute();
         }
 
+        public static List<Movie> getMovies(@NonNull final AppDatabase db){
+            return db.movieDao().getAll();
+        }
+
         private static Movie addMovie(final AppDatabase db, Movie movie) {
             db.movieDao().insertAll(movie);
             return movie;
+        }
+
+        public static int countMovie(@NonNull final AppDatabase db){
+            return db.movieDao().countMovie();
         }
 
         private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

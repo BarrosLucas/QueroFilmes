@@ -1,11 +1,37 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorAccent">@color/white</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+        <item name="android:typeface">monospace</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/actionBarColor</item>
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="colorPrimaryDark">@color/black</item>
+
+
+        <!--
+
+
+        <item name="android:titleTextStyle">@style/textActionBar</item>-->
     </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText"/>
+
+    <style name="Widget.Styled.ActionBar" parent="@style/Base.Widget.AppCompat.Light.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleText</item>
+        <item name="android:background">@color/actionBarColor</item>
+        <item name="background">@color/actionBarColor</item>
+    </style>
+
+
+    <style name="ActionBarTitleText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 </resources>

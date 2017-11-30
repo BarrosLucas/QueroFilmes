@@ -17,8 +17,8 @@ public interface MovieDAO {
     @Query("SELECT * FROM Movie")
     List<Movie> getAll();
 
-    @Query("SELECT * FROM Movie where name LIKE  :name")
-    Movie findByName(String name);
+    @Query("SELECT * FROM Movie where title LIKE  :title")
+    Movie findByTitle(String title);
 
     @Query("SELECT COUNT(*) from Movie")
     int countMovie();

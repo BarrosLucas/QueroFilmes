@@ -9,6 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity(tableName = "Movie")
 public class Movie {
+
     @PrimaryKey(autoGenerate = true)
     private int idMovie;
 
@@ -137,6 +138,10 @@ public class Movie {
 
     public int getIdMovie(){
         return idMovie;
+    }
+
+    public void setIdMovie(int idMovie) {
+        this.idMovie = idMovie;
     }
 
 }
