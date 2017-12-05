@@ -30,6 +30,10 @@ public class Database {
             return movie;
         }
 
+        public static Movie getMovie(@NonNull final AppDatabase db, String title){
+            return db.movieDao().findByTitle(title);
+        }
+
         public static int countMovie(@NonNull final AppDatabase db){
             return db.movieDao().countMovie();
         }

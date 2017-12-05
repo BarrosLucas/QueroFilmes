@@ -5,110 +5,110 @@ package com.example.root.querofilmes.model.service;
  */
 
 public class MovieResponse {
-    public String title;
-    public String year;
-    public String released;
-    public String runtime;
-    public String genre;
-    public String director;
-    public String plot;
-    public String language;
-    public String poster;
-    public String production;
+    public String Title;
+    public String Year;
+    public String Released;
+    public String Runtime;
+    public String Genre;
+    public String Director;
+    public String Plot;
+    public String Language;
+    public String Poster;
+    public String Production;
 
     public MovieResponse(String title, String year, String released, String runtime, String genre, String director, String plot, String language, String poster, String production) {
-        this.title = title;
-        this.year = year;
-        this.released = released;
-        this.runtime = runtime;
-        this.genre = genre;
-        this.director = director;
-        this.plot = plot;
-        this.language = language;
-        this.poster = poster;
-        this.production = production;
+        this.Title = title;
+        this.Year = year;
+        this.Released = released;
+        this.Runtime = runtime;
+        this.Genre = genre;
+        this.Director = director;
+        this.Plot = plot;
+        this.Language = language;
+        this.Poster = poster;
+        this.Production = production;
     }
 
 
 
     public String getProduction() {
-        return production;
+        return Production;
     }
 
     public void setProduction(String production) {
-        this.production = production;
+        this.Production = production;
     }
 
     public String getTitle() {
-        return this.title;
+        return this.Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getYear() {
-        return this.year;
+        return this.Year;
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.Year = year;
     }
 
     public String getReleased() {
-        return this.released;
+        return this.Released;
     }
 
     public void setReleased(String released) {
-        this.released = released;
+        this.Released = released;
     }
 
     public String getRuntime() {
-        return this.runtime;
+        return this.Runtime;
     }
 
     public void setRuntime(String runtime) {
-        this.runtime = runtime;
+        this.Runtime = runtime;
     }
 
     public String getGenre() {
-        return this.genre;
+        return this.Genre;
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        this.Genre = genre;
     }
 
     public String getDirector() {
-        return this.director;
+        return this.Director;
     }
 
     public void setDirector(String director) {
-        this.director = director;
+        this.Director = director;
     }
 
     public String getPlot() {
-        return this.plot;
+        return this.Plot;
     }
 
     public void setPlot(String plot) {
-        this.plot = plot;
+        this.Plot = plot;
     }
 
     public String getLanguage() {
-        return this.language;
+        return this.Language;
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        this.Language = language;
     }
 
     public String getPoster() {
-        return this.poster;
+        return this.Poster;
     }
 
     public void setPoster(String poster) {
-        this.poster = poster;
+        this.Poster = poster;
     }
 
 

@@ -55,7 +55,7 @@ public class MainPresenter {
 
                 LinearLayout.LayoutParams paramFrameLayout = new LinearLayout.LayoutParams(Math.round(110*displayMetrics.density),Math.round(170*displayMetrics.density));
                 frameLayout.setLayoutParams(paramFrameLayout);
-                frameLayout.setBackgroundColor(0xFFBDBDBD);
+                frameLayout.setBackgroundColor(0xFFFFFFFF);
                 frameLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

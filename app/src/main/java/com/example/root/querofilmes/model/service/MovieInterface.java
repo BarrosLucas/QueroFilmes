@@ -4,6 +4,8 @@ import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by root on 30/11/17.
@@ -11,11 +13,14 @@ import retrofit2.http.GET;
 
 public interface MovieInterface {
     String MOVIE_API_BASE_URL = "http://www.omdbapi.com/";
-    String API_KEY = "PlsBanMe2";
+    String API_KEY = "BanMePls2";
     String charset = "UTF-8";
     String TYPE = "movie";
 
 
-    @GET("search")
+    @GET(" ")
     Call<MovieResponse> search();
+
+    @GET(" ")
+    Call<ListMovieResponse> searchMovies();
 }
