@@ -43,7 +43,10 @@ public class Movie {
     @ColumnInfo(name = "production")
     private String production;
 
-    public Movie(String title, String year, String released, String runtime, String genre, String director, String plot, String language, String poster, String production){
+    @ColumnInfo(name = "favorite")
+    private boolean favorite;
+
+    public Movie(String title, String year, String released, String runtime, String genre, String director, String plot, String language, String poster, String production, boolean favorite){
         setTitle(title);
         setYear(year);
         setReleased(released);
@@ -54,6 +57,7 @@ public class Movie {
         setLanguage(language);
         setPoster(poster);
         setProduction(production);
+        setFavorite(favorite);
     }
 
     public String getTitle() {
@@ -142,6 +146,14 @@ public class Movie {
 
     public void setIdMovie(int idMovie) {
         this.idMovie = idMovie;
+    }
+
+    public boolean getFavorite(){
+        return this.favorite;
+    }
+
+    public void setFavorite(boolean favorite){
+        this.favorite = favorite;
     }
 
 }

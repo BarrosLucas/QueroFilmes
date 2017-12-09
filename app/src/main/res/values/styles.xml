@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="colorAccent">@color/white</item>
@@ -12,6 +12,26 @@
         <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="colorPrimaryDark">@color/black</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
+
+
+        <!--
+
+
+        <item name="android:titleTextStyle">@style/textActionBar</item>-->
+    </style>
+    <style name="AppMovie" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+
+        <item name="colorAccent">@color/white</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+        <item name="android:typeface">monospace</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/actionBarColor</item>
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
 
         <!--
@@ -20,7 +40,15 @@
         <item name="android:titleTextStyle">@style/textActionBar</item>-->
     </style>
 
-    <style name="EditTextStyle" parent="Widget.AppCompat.EditText"/>
+    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="Widget.Styled.ActionBar" parent="@style/Base.Widget.AppCompat.Light.ActionBar">
         <item name="titleTextStyle">@style/ActionBarTitleText</item>
@@ -31,7 +59,21 @@
 
     <style name="ActionBarTitleText" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
+
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

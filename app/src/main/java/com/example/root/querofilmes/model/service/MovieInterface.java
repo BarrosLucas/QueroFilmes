@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface MovieInterface {
     String MOVIE_API_BASE_URL = "http://www.omdbapi.com/";
-    String API_KEY = "BanMePls2";
+    String API_KEY = "PlzBanMe0";
     String charset = "UTF-8";
     String TYPE = "movie";
 

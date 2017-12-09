@@ -1,6 +1,8 @@
 package com.example.root.querofilmes.view;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,10 @@ public class SearchMovie extends AppCompatActivity implements AdapterView.OnItem
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_movie);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         searchMoviePresenter = new SearchMoviePresenter(getBaseContext(),this);
 

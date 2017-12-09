@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
+        android:background="@drawable/rounded_edit_text"
+        android:elevation="10dp"
         android:gravity="center">
         <EditText
             android:id="@+id/textSearch"
@@ -26,7 +28,7 @@
             android:hint="@string/search" />
         <ImageView
             android:padding="8dp"
-            android:background="@color/backgroundFrame"
+            android:background="@drawable/rounded_image_button"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="60dp"
@@ -39,7 +41,5 @@
         android:layout_height="match_parent">
 
     </ListView>
-
-
 
 </LinearLayout>

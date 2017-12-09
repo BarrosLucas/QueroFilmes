@@ -2,4 +2,15 @@
     <string name="app_name">Quero Filmes</string>
     <string name="search">Buscar</string>
     <string name="add">Adicionar</string>
+    <string name="remove">Remover</string>
+    <string name="favorite">Favoritos</string>
+    <string name="category">Categorias</string>
+    <string name="all">Todos</string>
+    <string name="title_activity_initial_screem">InitialScreem</string>
+    <string name="email">lucasfreitasdebarros@gmail.com</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

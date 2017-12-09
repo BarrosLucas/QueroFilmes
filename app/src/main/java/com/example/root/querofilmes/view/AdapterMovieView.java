@@ -30,7 +30,11 @@ public class AdapterMovieView extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return listMovieResponse.Search.size();
+        if(listMovieResponse.Search != null) {
+            return listMovieResponse.Search.size();
+        }else{
+            return 0;
+        }
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.example.root.querofilmes.model.service.ListMovieResponse;
 import com.example.root.querofilmes.model.service.MovieForList;
 import com.example.root.querofilmes.model.service.MovieInterface;
 import com.example.root.querofilmes.model.service.MovieResponse;
+import com.example.root.querofilmes.view.AdapterMovieMainView;
 import com.example.root.querofilmes.view.AdapterMovieView;
 import com.example.root.querofilmes.view.MainActivity;
 import com.example.root.querofilmes.view.SearchMovie;
@@ -42,8 +43,8 @@ import static com.example.root.querofilmes.model.service.MovieInterface.charset;
 
 public class AdapterSearchPresenter {
 
-    public static View generateView(final int position, View convertView, ViewGroup parent, Context context, final ListMovieResponse listMovieResponse) {
-        View view = LayoutInflater.from(SearchMovie.context).inflate(R.layout.adapter_view_movie, parent, false);
+    public static View generateView(final int position, View convertView, ViewGroup parent, final Context context, final ListMovieResponse listMovieResponse) {
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_view_movie, parent, false);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.movie);
         Picasso.with(context).load(listMovieResponse.Search.get(position).getPoster()).into(imageView);
@@ -55,7 +56,7 @@ public class AdapterSearchPresenter {
         year.setText("Ano: "+listMovieResponse.Search.get(position).getYear());
 
         final Button button = (Button) view.findViewById(R.id.add);
-        if(AppDatabase.getAppDatabase(SearchMovie.context).movieDao().findByTitle(listMovieResponse.Search.get(position).getTitle()) != null){
+        if(AppDatabase.getAppDatabase(context).movieDao().findByTitle(listMovieResponse.Search.get(position).getTitle()) != null){
             button.setText("REMOVER");
         }else{
             button.setText("ADICIONAR");
@@ -89,13 +90,16 @@ public class AdapterSearchPresenter {
                             if(response.body() != null){
                                 MovieResponse movieResponse = response.body();
 
-                                if(AppDatabase.getAppDatabase(SearchMovie.context).movieDao().findByTitle(movieResponse.getTitle()) == null) {
-                                    AppDatabase.getAppDatabase(SearchMovie.context).movieDao().insertAll(new Movie(movieResponse.getTitle(), movieResponse.getYear(), movieResponse.getReleased(), movieResponse.getRuntime(), movieResponse.getGenre(), movieResponse.getDirector(), movieResponse.getPlot(), movieResponse.getLanguage(), movieResponse.getPoster(), movieResponse.getProduction()));
-                                    button.setText("REMOVER");
+                                if(AppDatabase.getAppDatabase(context).movieDao().findByTitle(movieResponse.getTitle()) == null) {
+                                    AppDatabase.getAppDatabase(context).movieDao().insertAll(new Movie(movieResponse.getTitle(), movieResponse.getYear(), movieResponse.getReleased(), movieResponse.getRuntime(), movieResponse.getGenre(), movieResponse.getDirector(), movieResponse.getPlot(), movieResponse.getLanguage(), movieResponse.getPoster(), movieResponse.getProduction(),false));
                                 }
-                                Toast.makeText(SearchMovie.context,"Qnt. "+AppDatabase.getAppDatabase(SearchMovie.context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
+                                button.setText("REMOVER");
+
+                                MainPresenter.updateListMovies();
+
+                                Toast.makeText(context,"Qnt. "+AppDatabase.getAppDatabase(context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(SearchMovie.context,"Error",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             ResponseBody responseBody = response.errorBody();
@@ -104,20 +108,24 @@ public class AdapterSearchPresenter {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Toast.makeText(SearchMovie.context,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MovieResponse> call, Throwable t) {
-                        Toast.makeText(SearchMovie.context,"Falha",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"Falha",Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
             } else{
-                    AppDatabase.getAppDatabase(SearchMovie.context).movieDao().delete(AppDatabase.getAppDatabase(SearchMovie.context).movieDao().findByTitle(listMovieResponse.Search.get(position).getTitle()));
+                    AppDatabase.getAppDatabase(context).movieDao().delete(AppDatabase.getAppDatabase(context).movieDao().findByTitle(listMovieResponse.Search.get(position).getTitle()));
+
+
+                    MainPresenter.updateListMovies();
+
                     button.setText("ADICIONAR");
-                    Toast.makeText(SearchMovie.context,"Qnt. "+AppDatabase.getAppDatabase(SearchMovie.context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Qnt. "+AppDatabase.getAppDatabase(context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
                 }
 
         }});
