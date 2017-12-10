@@ -1,15 +1,13 @@
-package com.example.root.querofilmes.view;
+package com.example.root.querofilmes.view.adapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.example.root.querofilmes.model.DAO.MovieDAO;
-import com.example.root.querofilmes.model.Movie;
+import com.example.root.querofilmes.model.DAO.Movie;
 import com.example.root.querofilmes.presenter.AdapterMovieMain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

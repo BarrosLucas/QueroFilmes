@@ -2,9 +2,6 @@ package com.example.root.querofilmes.model.DAO;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-
-import com.example.root.querofilmes.model.Movie;
 
 import java.util.List;
 

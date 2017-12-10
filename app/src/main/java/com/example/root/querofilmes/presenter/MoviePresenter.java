@@ -1,22 +1,16 @@
 package com.example.root.querofilmes.presenter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.model.DAO.AppDatabase;
-import com.example.root.querofilmes.model.DAO.Database;
-import com.example.root.querofilmes.model.Movie;
-import com.example.root.querofilmes.view.AdapterMovieMainView;
-import com.example.root.querofilmes.view.MainActivity;
-import com.example.root.querofilmes.view.MovieActivity;
-import com.example.root.querofilmes.view.SearchMovie;
+import com.example.root.querofilmes.model.DAO.Movie;
+import com.example.root.querofilmes.view.activity.MovieActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +19,8 @@ import java.util.List;
 
 public class MoviePresenter {
     public static Context context;
+
+    //Set the values view to receiver the values movie
     public MoviePresenter(final Context context, final int index, final MovieActivity movieActivity){
         this.context = context;
 
@@ -38,6 +34,8 @@ public class MoviePresenter {
                 MovieActivity.genre.setText("Gênero: "+movies.get(index).getGenre());
                 MovieActivity.plot.setText("Sinopse: "+movies.get(index).getPlot());
                 Picasso.with(context).load(movies.get(index).getPoster()).into(MovieActivity.picture);
+
+                //Delete the movie on click button and set activity
                 MovieActivity.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -55,11 +53,14 @@ public class MoviePresenter {
 
                 });
 
+                //Set the star conform the favorite movie
                 if(movies.get(index).getFavorite()){
                     MovieActivity.favorite.setImageResource(R.drawable.star32px);
                 }else{
                     MovieActivity.favorite.setImageResource(R.drawable.star_white32px);
                 }
+
+                //Set the favorite in click star
                 MovieActivity.favorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by root on 30/11/17.
@@ -19,8 +20,8 @@ public interface MovieInterface {
 
 
     @GET(" ")
-    Call<MovieResponse> search();
+    Observable<MovieResponse> search();
 
     @GET(" ")
-    Call<ListMovieResponse> searchMovies();
+    Observable<ListMovieResponse> searchMovies();
 }

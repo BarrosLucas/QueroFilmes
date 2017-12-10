@@ -1,46 +1,30 @@
 package com.example.root.querofilmes.presenter;
 
 import android.content.Context;
-import android.support.v7.widget.SearchView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.root.querofilmes.InitialScreem;
-import com.example.root.querofilmes.R;
+import com.example.root.querofilmes.view.activity.InitialScreem;
 import com.example.root.querofilmes.model.DAO.AppDatabase;
 import com.example.root.querofilmes.model.DAO.Database;
-import com.example.root.querofilmes.model.Movie;
+import com.example.root.querofilmes.model.DAO.Movie;
 import com.example.root.querofilmes.model.service.ListMovieResponse;
 import com.example.root.querofilmes.model.service.MovieInterface;
-import com.example.root.querofilmes.view.AdapterMovieMainView;
-import com.example.root.querofilmes.view.AdapterMovieView;
-import com.example.root.querofilmes.view.MainActivity;
-import com.squareup.picasso.Picasso;
+import com.example.root.querofilmes.view.adapter.AdapterMovieMainView;
+import com.example.root.querofilmes.view.adapter.AdapterMovieView;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.example.root.querofilmes.model.service.MovieInterface.charset;
 
@@ -69,6 +53,7 @@ public class MainPresenter {
             movies.addAll(Database.getMovies(AppDatabase.getAppDatabase(mainActivityContext)));
             Log.i("Size",""+movies.size());
         }else{
+            //Always that the database not contaim none movie, suggestions are show to user
             searchMovieOnOMDB("final destination");
         }
         mainActivity.listView.setAdapter(null);
@@ -77,6 +62,7 @@ public class MainPresenter {
     }
 
     private static void updateListSearchMovies(ListMovieResponse listMovieResponses) throws UnsupportedEncodingException {
+        //Show the list of movies found in API
         mainActivity.isSearch = false;
         setIsSearch();
         if(mainActivity.isSearch) {
@@ -90,6 +76,7 @@ public class MainPresenter {
 
 
     public static List<Movie> generateNewList(List<Movie> movies){
+        //Organize the movies to show first the favorites
         List<Movie> newListMovies = new ArrayList<>();
         for(Movie movie: movies){
             if(movie.getFavorite()){
@@ -111,6 +98,7 @@ public class MainPresenter {
         updateListMovies();
     }
 
+    //Search movies with title informed from user
     public static void searchMovieOnOMDB(String title) throws UnsupportedEncodingException {
         String query = String.format("?s=%s&type=%s&apikey=%s",
                 URLEncoder.encode(title, charset),
@@ -119,47 +107,43 @@ public class MainPresenter {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(MovieInterface.MOVIE_API_BASE_URL+query)
                 .build();
 
         Log.i("Query",query);
 
         MovieInterface movieInterface = retrofit.create(MovieInterface.class);
-        Call<ListMovieResponse> callMovie = movieInterface.searchMovies();
-        callMovie.enqueue(new Callback<ListMovieResponse>() {
+        rx.Observable<ListMovieResponse> observable = movieInterface.searchMovies();
+
+        observable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ListMovieResponse>() {
             @Override
-            public void onResponse(Call<ListMovieResponse> call, Response<ListMovieResponse> response) {
-                if(response.isSuccessful()) {
-                    if(response.body() != null){
-                        listMovie = response.body();
-                        try {
-                            updateListSearchMovies(listMovie);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                    }else{
-                        Toast.makeText(mainActivityContext,"null",Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    ResponseBody responseBody = response.errorBody();
-                    try {
-                        Log.i("Erro",responseBody.source().readUtf8());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(mainActivityContext,response.errorBody().toString(),Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mainActivityContext, "Vish", Toast.LENGTH_SHORT).show();
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(mainActivityContext,"Ocorreu alguma falha",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(ListMovieResponse listMovieResponse) {
+                try {
+                    listMovie = listMovieResponse;
+                    updateListSearchMovies(listMovie);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             }
-
-            @Override
-            public void onFailure(Call<ListMovieResponse> call, Throwable t) {
-                Toast.makeText(mainActivityContext,"Falha",Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
         });
+
     }
 
+    //Show only favorite movies
     public static void populateFavoritesMovies() throws UnsupportedEncodingException {
         mainActivity.isSearch = true;
         setIsSearch();
@@ -173,6 +157,7 @@ public class MainPresenter {
         mainActivity.listView.setAdapter(new AdapterMovieMainView(mainActivityContext,generateFavoritList(movies)));
     }
 
+    //Generate list that contaim only the favorite movies
     public static List<Movie> generateFavoritList(List<Movie> movies){
         List<Movie> theReturn = new ArrayList<>();
         for(Movie movie: movies){
@@ -183,6 +168,7 @@ public class MainPresenter {
         return theReturn;
     }
 
+    //Set the view to show suggestion or results search
     public static void setIsSearch() throws UnsupportedEncodingException {
         mainActivity.isSearch = !mainActivity.isSearch;
         if(mainActivity.isSearch){

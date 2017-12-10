@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InitialScreem">
+        <activity android:name=".view.activity.InitialScreem" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,13 +18,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.activity.MovieActivity"
+            android:parentActivityName=".view.activity.InitialScreem"
             android:theme="@style/AppMovie"
-            android:name=".view.SearchMovie"
-            android:parentActivityName=".InitialScreem" />
-        <activity
-            android:name=".view.MovieActivity"
-            android:parentActivityName=".InitialScreem"
-            android:theme="@style/AppMovie"/>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

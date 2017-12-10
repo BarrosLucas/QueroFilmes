@@ -5,8 +5,6 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.root.querofilmes.model.Movie;
-
 /**
  * Created by root on 28/11/17.
  */

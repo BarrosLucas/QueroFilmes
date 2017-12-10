@@ -1,11 +1,9 @@
-package com.example.root.querofilmes;
+package com.example.root.querofilmes.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -20,15 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.presenter.MainPresenter;
-import com.example.root.querofilmes.view.MovieActivity;
-import com.example.root.querofilmes.view.SearchMovie;
 
 import java.io.UnsupportedEncodingException;
-
-import livroandroid.lib.fragment.NavigationDrawerFragment;
 
 public class InitialScreem extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
@@ -44,11 +38,13 @@ public class InitialScreem extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screem);
+
+        //Configure toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-
+        //Configure Drawaer layout
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,7 +71,7 @@ public class InitialScreem extends AppCompatActivity
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        //Action in search from movies in API
         listener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -98,7 +94,6 @@ public class InitialScreem extends AppCompatActivity
     }
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -115,6 +110,7 @@ public class InitialScreem extends AppCompatActivity
         }
     }
 
+    //Configure the menu with search view
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
@@ -155,42 +151,23 @@ public class InitialScreem extends AppCompatActivity
         return true;
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.initial_screem, menu);
-        return true;
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //Click in show all in Drawer
         if (id == R.id.nav_all) {
             try {
                 mainPresenter.populateCards();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        } else if (id == R.id.nav_favorite) {
+        }
+        //Click in favorite in Drawer
+        else if (id == R.id.nav_favorite) {
             try {
                 mainPresenter.populateFavoritesMovies();
             } catch (UnsupportedEncodingException e) {
@@ -203,12 +180,7 @@ public class InitialScreem extends AppCompatActivity
         return true;
     }
 
-    public void registerMovie(View v){
-        Toast.makeText(this,"Cadastrar novo filme",Toast.LENGTH_SHORT);
-        Intent intent = new Intent(this,SearchMovie.class);
-        startActivity(intent);
-    }
-
+    //Click in list element
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         index = position;

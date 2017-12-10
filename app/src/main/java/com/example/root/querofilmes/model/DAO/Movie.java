@@ -1,4 +1,4 @@
-package com.example.root.querofilmes.model;
+package com.example.root.querofilmes.model.DAO;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

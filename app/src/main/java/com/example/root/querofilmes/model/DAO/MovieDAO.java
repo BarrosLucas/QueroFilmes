@@ -5,8 +5,6 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.example.root.querofilmes.model.Movie;
-
 import java.util.List;
 
 /**

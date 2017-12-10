@@ -1,4 +1,4 @@
-package com.example.root.querofilmes.view;
+package com.example.root.querofilmes.view.activity;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.root.querofilmes.InitialScreem;
 import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.presenter.MoviePresenter;
+import com.example.root.querofilmes.view.activity.InitialScreem;
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -18,6 +18,7 @@ public class MovieActivity extends AppCompatActivity {
     public static ImageView picture,favorite;
     public static Button button;
 
+    //Configure view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +44,16 @@ public class MovieActivity extends AppCompatActivity {
         MoviePresenter moviePresenter = new MoviePresenter(this, InitialScreem.index, this);
     }
 
+    //Tell to app that none element of list was clicked and finalize the activity
     @Override
     public void onBackPressed() {
-        MainActivity.index = 0;
+        InitialScreem.index = 0;
         finish();
     }
 
+    //Called when the user delete some movie
     public void end(){
-        MainActivity.index = 0;
+        InitialScreem.index = 0;
         finish();
     }
 }

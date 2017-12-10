@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.model.DAO.AppDatabase;
-import com.example.root.querofilmes.model.Movie;
-import com.example.root.querofilmes.view.MainActivity;
-import com.example.root.querofilmes.view.SearchMovie;
+import com.example.root.querofilmes.model.DAO.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
@@ -22,6 +20,8 @@ import java.util.List;
  */
 
 public class AdapterMovieMain {
+
+    //Set the informations of view to movies values
     public static View generateList(final int position, View convertView, ViewGroup parent, final Context context, final List<Movie> movies){
         View view = new View(context);
 
@@ -40,11 +40,15 @@ public class AdapterMovieMain {
             abstractMovie.setText(movies.get(position).getPlot());
 
             final ImageView star = (ImageView) view.findViewById(R.id.star);
+
+            //If the movie to be favorite to user, show the yellow star, else show the white star
             if(movies.get(position).getFavorite()){
                 star.setImageResource(R.drawable.star32px);
             }else{
                 star.setImageResource(R.drawable.star_white32px);
             }
+
+            //Set the favorite movies when the user click in star
             star.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

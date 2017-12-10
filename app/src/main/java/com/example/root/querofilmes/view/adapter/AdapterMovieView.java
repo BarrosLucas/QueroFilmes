@@ -1,4 +1,4 @@
-package com.example.root.querofilmes.view;
+package com.example.root.querofilmes.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
