@@ -62,19 +62,21 @@ public class MainPresenter {
         this.mainActivity = mainActivity;
     }
 
-    public static void updateListMovies(){
+    public static void updateListMovies() throws UnsupportedEncodingException {
         int countMovies = Database.countMovie(AppDatabase.getAppDatabase(mainActivityContext));
         movies = new ArrayList<>();
         if(countMovies>0){
             movies.addAll(Database.getMovies(AppDatabase.getAppDatabase(mainActivityContext)));
             Log.i("Size",""+movies.size());
+        }else{
+            searchMovieOnOMDB("final destination");
         }
         mainActivity.listView.setAdapter(null);
         mainActivity.listView.setAdapter(new AdapterMovieMainView(mainActivityContext,generateNewList(movies)));
 
     }
 
-    private void updateListSearchMovies(ListMovieResponse listMovieResponses){
+    private static void updateListSearchMovies(ListMovieResponse listMovieResponses) throws UnsupportedEncodingException {
         mainActivity.isSearch = false;
         setIsSearch();
         if(mainActivity.isSearch) {
@@ -103,13 +105,13 @@ public class MainPresenter {
         return newListMovies;
     }
 
-    public void populateCards(){
+    public void populateCards() throws UnsupportedEncodingException {
         mainActivity.isSearch = true;
         setIsSearch();
         updateListMovies();
     }
 
-    public void searchMovieOnOMDB(String title) throws UnsupportedEncodingException {
+    public static void searchMovieOnOMDB(String title) throws UnsupportedEncodingException {
         String query = String.format("?s=%s&type=%s&apikey=%s",
                 URLEncoder.encode(title, charset),
                 URLEncoder.encode(MovieInterface.TYPE, charset),
@@ -130,7 +132,11 @@ public class MainPresenter {
                 if(response.isSuccessful()) {
                     if(response.body() != null){
                         listMovie = response.body();
-                        updateListSearchMovies(listMovie);
+                        try {
+                            updateListSearchMovies(listMovie);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                     }else{
                         Toast.makeText(mainActivityContext,"null",Toast.LENGTH_SHORT).show();
                     }
@@ -154,7 +160,7 @@ public class MainPresenter {
         });
     }
 
-    public static void populateFavoritesMovies(){
+    public static void populateFavoritesMovies() throws UnsupportedEncodingException {
         mainActivity.isSearch = true;
         setIsSearch();
         int countMovies = Database.countMovie(AppDatabase.getAppDatabase(mainActivityContext));
@@ -177,7 +183,7 @@ public class MainPresenter {
         return theReturn;
     }
 
-    public static void setIsSearch(){
+    public static void setIsSearch() throws UnsupportedEncodingException {
         mainActivity.isSearch = !mainActivity.isSearch;
         if(mainActivity.isSearch){
             mainActivity.listView.setVisibility(View.GONE);

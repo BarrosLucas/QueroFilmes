@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.presenter.MainPresenter;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import livroandroid.lib.fragment.NavigationDrawerFragment;
@@ -64,7 +65,11 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
 
         //mainPresenter = new MainPresenter(getBaseContext(),this);
-        mainPresenter.populateCards();
+        try {
+            mainPresenter.populateCards();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         listener = new SearchView.OnQueryTextListener() {
             @Override

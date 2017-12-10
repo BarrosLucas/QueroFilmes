@@ -70,7 +70,11 @@ public class InitialScreem extends AppCompatActivity
         context = this;
 
         mainPresenter = new MainPresenter(getBaseContext(),this);
-        mainPresenter.populateCards();
+        try {
+            mainPresenter.populateCards();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         listener = new SearchView.OnQueryTextListener() {
             @Override
@@ -101,7 +105,11 @@ public class InitialScreem extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if(isSearch){
-            mainPresenter.setIsSearch();
+            try {
+                mainPresenter.setIsSearch();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         } else {
             super.onBackPressed();
         }
@@ -134,7 +142,11 @@ public class InitialScreem extends AppCompatActivity
                 @Override
                 public boolean onMenuItemActionCollapse(MenuItem item) {
                     isSearch = true;
-                    mainPresenter.setIsSearch();
+                    try {
+                        mainPresenter.setIsSearch();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
             });
@@ -173,9 +185,17 @@ public class InitialScreem extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_all) {
-            mainPresenter.populateCards();
+            try {
+                mainPresenter.populateCards();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         } else if (id == R.id.nav_favorite) {
-            mainPresenter.populateFavoritesMovies();
+            try {
+                mainPresenter.populateFavoritesMovies();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -191,7 +211,6 @@ public class InitialScreem extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this,"Indice: "+position,Toast.LENGTH_SHORT).show();
         index = position;
         Intent intent = new Intent(this,MovieActivity.class);
         startActivity(intent);

@@ -3,6 +3,7 @@ package com.example.root.querofilmes.presenter;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.root.querofilmes.R;
 import com.example.root.querofilmes.model.DAO.AppDatabase;
@@ -14,6 +15,7 @@ import com.example.root.querofilmes.view.MovieActivity;
 import com.example.root.querofilmes.view.SearchMovie;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +42,12 @@ public class MoviePresenter {
                     @Override
                     public void onClick(View v) {
                         AppDatabase.getAppDatabase(context).movieDao().delete(AppDatabase.getAppDatabase(context).movieDao().findByTitle(movies.get(index).getTitle()));
-
-                        MainPresenter.updateListMovies();
+                        Toast.makeText(context,"Filme deletado!",Toast.LENGTH_SHORT).show();
+                        try {
+                            MainPresenter.updateListMovies();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
                         movieActivity.end();
                     }
@@ -63,7 +69,11 @@ public class MoviePresenter {
                         AppDatabase.getAppDatabase(context).movieDao().delete(AppDatabase.getAppDatabase(context).movieDao().findByTitle(movies.get(index).getTitle()));
                         AppDatabase.getAppDatabase(context).movieDao().insertAll(movie);
 
-                        MainPresenter.updateListMovies();
+                        try {
+                            MainPresenter.updateListMovies();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         if(movie.getFavorite()){
                             MovieActivity.favorite.setImageResource(R.drawable.star32px);
                         }else{

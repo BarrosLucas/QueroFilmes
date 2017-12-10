@@ -92,12 +92,15 @@ public class AdapterSearchPresenter {
 
                                 if(AppDatabase.getAppDatabase(context).movieDao().findByTitle(movieResponse.getTitle()) == null) {
                                     AppDatabase.getAppDatabase(context).movieDao().insertAll(new Movie(movieResponse.getTitle(), movieResponse.getYear(), movieResponse.getReleased(), movieResponse.getRuntime(), movieResponse.getGenre(), movieResponse.getDirector(), movieResponse.getPlot(), movieResponse.getLanguage(), movieResponse.getPoster(), movieResponse.getProduction(),false));
+                                    Toast.makeText(context,"Filme cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                                 }
                                 button.setText("REMOVER");
 
-                                MainPresenter.updateListMovies();
-
-                                Toast.makeText(context,"Qnt. "+AppDatabase.getAppDatabase(context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
+                                try {
+                                    MainPresenter.updateListMovies();
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
                             }else{
                                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
                             }
@@ -122,10 +125,14 @@ public class AdapterSearchPresenter {
                     AppDatabase.getAppDatabase(context).movieDao().delete(AppDatabase.getAppDatabase(context).movieDao().findByTitle(listMovieResponse.Search.get(position).getTitle()));
 
 
-                    MainPresenter.updateListMovies();
+                    try {
+                        MainPresenter.updateListMovies();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
                     button.setText("ADICIONAR");
-                    Toast.makeText(context,"Qnt. "+AppDatabase.getAppDatabase(context).movieDao().countMovie(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Filme deletado com sucesso!",Toast.LENGTH_SHORT).show();
                 }
 
         }});

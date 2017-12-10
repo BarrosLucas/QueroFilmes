@@ -14,6 +14,7 @@ import com.example.root.querofilmes.view.MainActivity;
 import com.example.root.querofilmes.view.SearchMovie;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -53,7 +54,11 @@ public class AdapterMovieMain {
                     AppDatabase.getAppDatabase(context).movieDao().delete(AppDatabase.getAppDatabase(context).movieDao().findByTitle(movies.get(position).getTitle()));
                     AppDatabase.getAppDatabase(context).movieDao().insertAll(movie);
 
-                    MainPresenter.updateListMovies();
+                    try {
+                        MainPresenter.updateListMovies();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if(movie.getFavorite()){
                         star.setImageResource(R.drawable.star32px);
                     }else{
